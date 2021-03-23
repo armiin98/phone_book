@@ -49,7 +49,7 @@ def programe():
     5) EDIT A CONTACT
     6) SAVE CHANGES
     7) Exit\n""")
-    choose = input("what are you going to do? ")
+    choose = input("Please select an Option: ")
 
     # this function shows persons information in a table
     def show(person):
