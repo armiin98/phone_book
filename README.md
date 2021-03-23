@@ -31,4 +31,4 @@ This is a simple phone book project with python3
     6) SAVE CHANGES
     7) Exit
 
-    Please aelect an Option : 
+    Please select an Option : 
