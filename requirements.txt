@@ -1,0 +1,2 @@
+clear-screen==0.1.14
+colorama==0.4.4
