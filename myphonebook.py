@@ -1,5 +1,5 @@
 ### a simple phone book project with python written by armin  ###
-# it should not be seen in the main branch
+
 # import regex
 import re
 
@@ -234,6 +234,7 @@ You can search by name, number and email (q! to Menu) :
     2-edit name
     3-remove a contact name
     4-add a contact name
+    5-edit contact name
 
     :? """)
                     #show info of contact
@@ -313,6 +314,10 @@ You can search by name, number and email (q! to Menu) :
                         print("\n%s successfully added :)"%new_contact_name)
                         edit_info(person)
                     
+                    # edit a contact name
+                    elif item == "5" : 
+                        print("edit option will be added")
+
                     # back to main menu 
                     elif item == "q!" :    
                         programe() 
