@@ -331,7 +331,7 @@ You can search by name, number and email (q! to Menu) :
                     
                     # edit a contact name
                     elif item == "5" : 
-                        print("edit option will be added")
+                        print("\nedit option will be added")
 
                     # back to main menu 
                     elif item == "q!" :    
