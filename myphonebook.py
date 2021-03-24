@@ -280,17 +280,24 @@ You can search by name, number and email (q! to Menu) :
                                 if id_to_del in  list(contact[info]["ID"]) : 
                                     S = True
                                     phone_book[person].remove(contact)
-                                    print("\n%s removed!",id_to_del)
+                                    print("\nrow %s removed!"%id_to_del)
                                     break
-                                else : 
-                                    print("\n%s not found!",id_to_del)    
+                        if not S : 
+                            print("\nrow %s not found!"%id_to_del)    
 
                         edit_info(person)
 
                     # add contact name
                     elif item == "4" : 
                         global max_char
-
+                        try : 
+                            for contact in phone_book[person]:
+                                for info in contact : 
+                                    contact_id = int(contact[info]["ID"])
+                            contact_id = str(contact_id + 1)  
+                        except : 
+                            contact_id = 1      
+                                                    
                         max_char = True
                         while max_char  :
                             new_contact_name = input("please enter new contact name to add: ")
@@ -315,7 +322,7 @@ You can search by name, number and email (q! to Menu) :
                             addr = input("please enter address: ")
                             check(addr,40)
 
-                        contact_dict[new_contact_name]={"phone":phone,"email":mail,"address":addr}
+                        contact_dict[new_contact_name]={"ID":str(contact_id),"phone":phone,"email":mail,"address":addr}
                         phone_book[person].append(contact_dict)
                         print("\n%s successfully added :)"%new_contact_name)
                         edit_info(person)
