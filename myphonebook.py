@@ -55,13 +55,13 @@ def programe():
     def show(person):
         print(Fore.BLUE+"\n>> %s"%person,Style.RESET_ALL,"'s informations: \n",sep="")
         # decrate before printing contacts
-        print("      ","+","="*15,"+","="*15,"+","="*30,"+","="*40,"+",sep="")
-        print("      ","|",Fore.RED+"CONTACT NAME".center(15),Style.RESET_ALL,"|",Fore.RED+"PHONE NUMBER".center(15),Style.RESET_ALL,"|",Fore.RED+"E-MAIL".center(30),Style.RESET_ALL,"|",Fore.RED+"ADDRESS".center(40),Style.RESET_ALL,"|",sep="")
-        print("      ","+","="*15,"+","="*15,"+","="*30,"+","="*40,"+",sep="")
+        print("      ","+","="*4,"+","="*15,"+","="*15,"+","="*30,"+","="*40,"+",sep="")
+        print("      ","|",Fore.RED+"ID".center(4),Style.RESET_ALL,"|",Fore.RED+"CONTACT NAME".center(15),Style.RESET_ALL,"|",Fore.RED+"PHONE NUMBER".center(15),Style.RESET_ALL,"|",Fore.RED+"E-MAIL".center(30),Style.RESET_ALL,"|",Fore.RED+"ADDRESS".center(40),Style.RESET_ALL,"|",sep="")
+        print("      ","+","="*4,"+","="*15,"+","="*15,"+","="*30,"+","="*40,"+",sep="")
         for contact in phone_book[person]:
             for info in contact : 
-                print("      ","|",Fore.GREEN+info.center(15),Style.RESET_ALL,"|",contact[info]["phone"].center(15),"|",contact[info]["email"].center(30),"|",contact[info]["address"].center(40),"|",sep="")  
-                print("      ","+","-"*15,"+","-"*15,"+","-"*30,"+","-"*40,"+",sep="")
+                print("      ","|",Fore.GREEN+contact[info]["ID"].center(4),Style.RESET_ALL,"|",info.center(15),"|",contact[info]["phone"].center(15),"|",contact[info]["email"].center(30),"|",contact[info]["address"].center(40),"|",sep="")  
+                print("      ","+","-"*4,"+","-"*15,"+","-"*15,"+","-"*30,"+","-"*40,"+",sep="")
             
     # print phone book
     if choose == "1" : 
@@ -77,10 +77,12 @@ def programe():
     # add new contact    
     elif choose == "2" :
         clear()
+        global contact_id
+        contact_id = 0
         def add_a_name():           
             name = input("please enter a name (q! to menu) : ")
-            # make fist letter upper case
             back(name)
+            # make fist letter upper case
             name = name.capitalize()
             # check valid name
             if re.match("^[a-zA-Z ]+$", name):
@@ -103,6 +105,8 @@ def programe():
                 while max_char  :
                     contact_name = input("please enter a contact name like (home/work,..) for %s: "%name) 
                     check(contact_name,15)
+                    global contact_id
+                    contact_id = contact_id + 1
                 contact_dict = {}
 
                 # input phone number and check for maximum  character 
@@ -123,7 +127,7 @@ def programe():
                     addr = input("please enter address for %s's %s: "%(name,contact_name))
                     check(addr,40)
 
-                contact_dict[contact_name]={"phone":phone,"email":mail,"address":addr}
+                contact_dict[contact_name]={"ID":str(contact_id),"phone":phone,"email":mail,"address":addr}
                 contact_list.append(contact_dict)
 
                 # asks to add another contact name or not
@@ -232,9 +236,9 @@ You can search by name, number and email (q! to Menu) :
     
     1-show contact info
     2-edit name
-    3-remove a contact name
-    4-add a contact name
-    5-edit contact name
+    3-remove a row
+    4-add a row
+    5-edit a row
 
     :? """)
                     #show info of contact
@@ -270,15 +274,17 @@ You can search by name, number and email (q! to Menu) :
                     # delete the contact name
                     elif item == "3" :
                         S = False
-                        Contact_to_delete = input("please enter the contact name to delete: ")
-                        for contact_name in phone_book[person]:
-                            if Contact_to_delete in contact_name :
-                                S = True
-                                del contact_name[Contact_to_delete] 
-                                print("\n%s successfully deleted :)"%Contact_to_delete)
-                                break
-                        if not S : 
-                            print("\n%s not found!"%Contact_to_delete)    
+                        id_to_del = str(input("\nEnter ID to delete contact name: "))
+                        for contact in phone_book[person]:
+                            for info in contact :
+                                if id_to_del in  list(contact[info]["ID"]) : 
+                                    S = True
+                                    phone_book[person].remove(contact)
+                                    print("\n%s removed!",id_to_del)
+                                    break
+                                else : 
+                                    print("\n%s not found!",id_to_del)    
+
                         edit_info(person)
 
                     # add contact name
