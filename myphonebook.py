@@ -178,6 +178,7 @@ You can search by name, number and email (q! to Menu) :
                 name = input("\nplease enter the name : ")
                 name = name.capitalize()    
                 if name in phone_book : 
+                    clear()
                     show(name)
                 else :
                     print("\n%s not found!"%name)
@@ -194,6 +195,7 @@ You can search by name, number and email (q! to Menu) :
                             for info in contact :
                                 if contact[info]["phone"] == number :  
                                     empty.append(person)
+                                    clear()
                                     show(person)
                                     S = True
                 if not S : 
@@ -211,6 +213,7 @@ You can search by name, number and email (q! to Menu) :
                             for info in contact :
                                 if contact[info]["email"] == email :  
                                     empty.append(person)
+                                    clear()
                                     show(person)
                                     S = True            
                 if not S : 
@@ -228,7 +231,6 @@ You can search by name, number and email (q! to Menu) :
     elif choose == "5":
         def edit():
             try : 
-                global new_name
                 person = new_name
             except :     
                 person = input("\nenter the name of contact you want to edit (q! to menu):  ")
