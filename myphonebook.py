@@ -274,7 +274,7 @@ You can search by name, number and email (q! to Menu) :
                     # delete the contact name
                     elif item == "3" :
                         S = False
-                        id_to_del = str(input("\nEnter ID to delete contact name: "))
+                        id_to_del = str(input("\nEnter ID to delete that row : "))
                         for contact in phone_book[person]:
                             for info in contact :
                                 if id_to_del in  list(contact[info]["ID"]) : 
@@ -302,7 +302,7 @@ You can search by name, number and email (q! to Menu) :
                                                     
                         max_char = True
                         while max_char  :
-                            new_contact_name = input("please enter new contact name to add: ")
+                            new_contact_name = input("\nplease enter new contact name to add: ")
                             check(new_contact_name,15)
                         contact_dict = {}
 
