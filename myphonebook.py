@@ -338,7 +338,7 @@ You can search by name, number and email (q! to Menu) :
                     
                     # edit a row
                     elif item == "5" : 
-                        input("""\nwhat are you gonna do?
+                        choose = input("""\nwhat are you gonna do (c for cancel)?
 
     1) edit ID
     2) edit Contact Name
@@ -347,7 +347,7 @@ You can search by name, number and email (q! to Menu) :
     5) edit Address
 
     ?: """)
-                    
+                                                
 
                     # back to main menu 
                     elif item == "q!" :    
