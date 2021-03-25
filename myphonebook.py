@@ -291,7 +291,7 @@ You can search by name, number and email (q! to Menu) :
                     elif item == "4" : 
                         global max_char
 
-                        # read contact id ; if there was no rows , id would be 1
+                        # read contact id ; if there was no row , id would be 1
                         try : 
                             for contact in phone_book[person]:
                                 for info in contact : 
