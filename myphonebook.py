@@ -338,7 +338,11 @@ You can search by name, number and email (q! to Menu) :
                     
                     # edit a row
                     elif item == "5" : 
-                        choose = input("""\nwhat are you gonna do (c for cancel)?
+                        id_to_edit = input("\nEnter ID to edit the row: ")
+                        for contact in phone_book[person]:
+                            for info in contact :          
+                                if id_to_edit == contact[info]["ID"]:
+                                    choose = input("""\nwhat are you gonna do (c for cancel)?
 
     1) edit ID
     2) edit Contact Name
@@ -347,7 +351,20 @@ You can search by name, number and email (q! to Menu) :
     5) edit Address
 
     ?: """)
-                                                
+                        # edit id
+                        if choose == "1" : 
+                            new_id = input("\nEnter new ID: ")
+                            for contact in phone_book[person]:
+                                for info in contact :    
+                                    if id_to_edit == contact[info]["ID"] :       
+                                        contact[info]["ID"] = new_id
+
+                        # edit contact name
+                        elif choose == "2" : 
+                            new_contact_name = input("\nEnter new contact name: ")
+                            for contact in phone_book[person]:
+                                for info in contact :
+                                    pass
 
                     # back to main menu 
                     elif item == "q!" :    

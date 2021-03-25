@@ -1,0 +1,2 @@
+phone_book = {'Test': [{'home': {'ID': '1', 'phone': '1111', 'email': 'test@info.com', 'address': 'Iran'}}, {'work': {'ID': '2', 'phone': '1234', 'email': 'test@test.com', 'address': 'Tazbriz'}}]}
+print(phone_book[test])
