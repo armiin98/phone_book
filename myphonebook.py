@@ -227,7 +227,11 @@ You can search by name, number and email (q! to Menu) :
     # edit contact
     elif choose == "5":
         def edit():
-            person = input("\nenter the name of contact you want to edit (q! to menu):  ")
+            try : 
+                global new_name
+                person = new_name
+            except :     
+                person = input("\nenter the name of contact you want to edit (q! to menu):  ")
             back(person)
             person = person.capitalize()
             if person in phone_book : 
@@ -249,6 +253,7 @@ You can search by name, number and email (q! to Menu) :
                     # change the name
                     elif item == "2" :
                         def change_name():
+                            global new_name
                             new_name = input("please enter a new name (enter C for cancel): ")
                             new_name = new_name.capitalize()
                             if new_name == "C" : 
