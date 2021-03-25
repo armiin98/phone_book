@@ -256,7 +256,7 @@ You can search by name, number and email (q! to Menu) :
                     elif item == "2" :
                         def change_name():
                             global new_name
-                            new_name = input("please enter a new name (enter C for cancel): ")
+                            new_name = input("\nplease enter a new name (enter C for cancel): ")
                             new_name = new_name.capitalize()
                             if new_name == "C" : 
                                 edit_info(person)
