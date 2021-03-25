@@ -336,9 +336,18 @@ You can search by name, number and email (q! to Menu) :
                         print("\n%s successfully added :)"%new_contact_name)
                         edit_info(person)
                     
-                    # edit a contact name
+                    # edit a row
                     elif item == "5" : 
-                        print("\nedit option will be added")
+                        input("""\nwhat are you gonna do?
+
+    1) edit ID
+    2) edit Contact Name
+    3) edit Phone number
+    4) edit E-mail
+    5) edit Address
+
+    ?: """)
+                    
 
                     # back to main menu 
                     elif item == "q!" :    
