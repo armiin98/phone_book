@@ -168,9 +168,9 @@ def programe():
             search_by = input("""
 You can search by name, number and email (q! to Menu) : 
 
-    1-by name
-    2-by number
-    3-by email
+    1) by name
+    2) by number
+    3) by email
 
     :? """)
             # by name    
@@ -178,8 +178,8 @@ You can search by name, number and email (q! to Menu) :
                 name = input("\nplease enter the name : ")
                 name = name.capitalize()    
                 if name in phone_book : 
-                    clear()
                     show(name)
+                    search()
                 else :
                     print("\n%s not found!"%name)
                     search() 
@@ -195,9 +195,9 @@ You can search by name, number and email (q! to Menu) :
                             for info in contact :
                                 if contact[info]["phone"] == number :  
                                     empty.append(person)
-                                    clear()
                                     show(person)
                                     S = True
+                                    search()
                 if not S : 
                     print("\n%s not found!"%number)
                     search()                
@@ -213,9 +213,9 @@ You can search by name, number and email (q! to Menu) :
                             for info in contact :
                                 if contact[info]["email"] == email :  
                                     empty.append(person)
-                                    clear()
                                     show(person)
-                                    S = True            
+                                    S = True
+                                    search()            
                 if not S : 
                     print("\n%s not found!"%email)    
                     search()
@@ -229,6 +229,7 @@ You can search by name, number and email (q! to Menu) :
 
     # edit contact
     elif choose == "5":
+        clear()
         def edit():
             try : 
                 person = new_name
@@ -240,11 +241,11 @@ You can search by name, number and email (q! to Menu) :
                 def edit_info(person):
                     item = input("""\nwhat do you want to do? (q! to Menu)
     
-    1-show contact info
-    2-edit name
-    3-remove a row
-    4-add a row
-    5-edit a row
+    1) show contact info
+    2) edit name
+    3) remove a row
+    4) add a row
+    5) edit a row
 
     :? """)
                     #show info of contact
@@ -338,10 +339,13 @@ You can search by name, number and email (q! to Menu) :
                     
                     # edit a row
                     elif item == "5" : 
-                        id_to_edit = input("\nEnter ID to edit the row: ")
+                        id_to_edit = input("\nEnter ID to edit the row (c for cancel): ")
+                        #if id_to_edit == "C" or "C" : 
+                         #   edit_info(person)
                         for contact in phone_book[person]:
                             for info in contact :          
                                 if id_to_edit == contact[info]["ID"]:
+                                    clear()
                                     choose = input("""\nwhat are you gonna do (c for cancel)?
 
     1) edit ID
@@ -350,7 +354,8 @@ You can search by name, number and email (q! to Menu) :
     4) edit E-mail
     5) edit Address
 
-    ?: """)
+    ?: """)                         
+                                    break
                         # edit id
                         if choose == "1" : 
                             new_id = input("\nEnter new ID: ")
@@ -393,7 +398,8 @@ You can search by name, number and email (q! to Menu) :
                                     if id_to_edit == contact[info]["ID"] :       
                                         contact[info]["address"] = new_addr                
 
-
+                        elif choose == "C" : 
+                            edit()
 
                     # back to main menu 
                     elif item == "q!" :    
