@@ -22,7 +22,7 @@ def check(item,n):
     global max_char
     max_char = False
   else:
-    print("max length is %i! try again."%n)
+    print("\nmax length is %i! try again."%n)
 
 # open phone book data
 try : 
@@ -318,19 +318,19 @@ You can search by name, number and email (q! to Menu) :
                         # add new phone number
                         max_char = True
                         while max_char  :
-                            phone = input("please enter phone number: ")
+                            phone = input("\nplease enter phone number: ")
                             check(phone,15)
                         
                         # add new email
                         max_char = True
                         while max_char  :
-                            mail = input("please enter email: ")
+                            mail = input("\nplease enter email: ")
                             check(mail,30)
 
                         # add new address    
                         max_char = True
                         while max_char  :
-                            addr = input("please enter address: ")
+                            addr = input("\nplease enter address: ")
                             check(addr,40)
 
                         contact_dict[new_contact_name]={"ID":str(contact_id),"phone":phone,"email":mail,"address":addr}
