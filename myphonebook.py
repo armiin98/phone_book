@@ -257,13 +257,14 @@ You can search by name, number and email (q! to Menu) :
                     elif item == "2" :
                         def change_name():
                             global new_name
-                            new_name = input("\nplease enter a new name (enter C for cancel): ")
-                            if new_name.capitalize() == "C" : 
+                            new_name = input("\nplease enter a new name (enter c! for cancel): ")
+                            if new_name == "c!" : 
                                 edit_info(person)
-                            else :     
+                            else:
+                                new_name = new_name.capitalize()    
                                 # check if new name exist in phone book or not 
                                 if new_name in phone_book : 
-                                    print("\n%s exist in phone book! choose another name. \n"%new_name)
+                                    print("\n%s exist in phone book! choose another name."%new_name)
                                     change_name()
                                 else:
                                     pass
@@ -274,7 +275,7 @@ You can search by name, number and email (q! to Menu) :
                                     # after the name was change , edit function has to start again
                                     edit()
                                 else : 
-                                    print("wrong input! you can use a-z and white space for your name! try again.")
+                                    print("\nwrong input! you can use a-z and white space for your name! try again.")
                                     change_name()
                         change_name()
 
@@ -338,15 +339,16 @@ You can search by name, number and email (q! to Menu) :
                     
                     # edit a row
                     elif item == "5" : 
-                        id_to_edit = input("\nEnter ID to edit the row (c for cancel): ")
-                        if id_to_edit.capitalize() == "C" :   
-                           edit_info(person)
-                        for contact in phone_book[person]:
-                            for info in contact :          
-                                if id_to_edit == contact[info]["ID"]:
-                                    clear()
-                                    choose = input("""\nwhat are you gonna do (c for cancel)?
+                        def edit_row():
+                            id_to_edit = input("\nEnter ID to edit the row (c! for cancel): ")   
+                            for contact in phone_book[person]:
+                                for info in contact :          
+                                    if id_to_edit == contact[info]["ID"]:
+                                        clear()
+                                        def sub_edit():
+                                            choose = input("""\nwhat are you gonna do (c! for cancel)?
 
+    0) show row info
     1) edit ID
     2) edit Contact Name
     3) edit Phone number
@@ -354,57 +356,77 @@ You can search by name, number and email (q! to Menu) :
     5) edit Address
 
     ?: """)                         
-                                
-                                    # edit id
-                                    if choose == "1" : 
-                                        new_id = input("\nEnter new ID: ")
-                                        for contact in phone_book[person]:
-                                            for info in contact :    
-                                                if id_to_edit == contact[info]["ID"] :       
-                                                    contact[info]["ID"] = new_id
+                                            if choose == "0" : 
+                                                show(person)
+                                                sub_edit()                                   
+                                            # edit id
+                                            elif choose == "1" : 
+                                                new_id = input("\nEnter new ID: ")
+                                                for contact in phone_book[person]:
+                                                    for info in contact :    
+                                                        if id_to_edit == contact[info]["ID"] :       
+                                                            contact[info]["ID"] = new_id
+                                                            print("\nID changed to %s"%new_id)
+                                                            edit_row()
 
-                                    # edit contact name
-                                    elif choose == "2" : 
-                                        new_contact_name = input("\nEnter new contact name: ")
-                                        for contact in phone_book[person]:
-                                            for info in contact :
-                                                if id_to_edit == contact[info]["ID"]:
+                                            # edit contact name
+                                            elif choose == "2" : 
+                                                new_contact_name = input("\nEnter new contact name: ")
+                                                for contact in phone_book[person]:
+                                                    for info in contact :
+                                                        if id_to_edit == contact[info]["ID"]:
+                                                            contact[new_contact_name] = contact.pop(info)
+                                                            print("\ncontact name changed to %s"%new_contact_name)
+                                                            edit_row()
+                                        
+                                        # edit phone number
+                                            elif choose == "3" : 
+                                                new_phone_number = input("Enter new phone number: ")
+                                                for contact in phone_book[person]:
+                                                    for info in contact :    
+                                                        if id_to_edit == contact[info]["ID"] :       
+                                                            contact[info]["phone"] = new_phone_number       
+                                                            print("\nphone number changed to %s"%new_phone_number)
+                                                            edit_row()
+                                        
+                                            # edit email
+                                            elif choose == "4" : 
+                                                new_email = input("Enter new email: ")
+                                                for contact in phone_book[person]:
+                                                    for info in contact :    
+                                                        if id_to_edit == contact[info]["ID"] :       
+                                                            contact[info]["email"] = new_email 
+                                                            print("\nemail changed to %s"%new_email)
+                                                            edit_row()
 
-                                                    contact[new_contact_name] = contact.pop(info)
-                                                    break
-                                
-                                # edit phone number
-                                    elif choose == "3" : 
-                                        new_phone_number = input("Enter new phone number: ")
-                                        for contact in phone_book[person]:
-                                            for info in contact :    
-                                                if id_to_edit == contact[info]["ID"] :       
-                                                    contact[info]["phone"] = new_phone_number       
-                                
-                                    # edit email
-                                    elif choose == "4" : 
-                                        new_email = input("Enter new email: ")
-                                        for contact in phone_book[person]:
-                                            for info in contact :    
-                                                if id_to_edit == contact[info]["ID"] :       
-                                                    contact[info]["email"] = new_email 
+                                            # edit address
+                                            elif choose == "5" : 
+                                                new_addr = input("Enter new address: ")
+                                                for contact in phone_book[person]:
+                                                    for info in contact :    
+                                                        if id_to_edit == contact[info]["ID"] :       
+                                                            contact[info]["address"] = new_addr
+                                                            print("\naddress changed to %s"%new_addr)
+                                                            edit_row()                
 
-                                    # edit address
-                                    elif choose == "5" : 
-                                        new_addr = input("Enter new address: ")
-                                        for contact in phone_book[person]:
-                                            for info in contact :    
-                                                if id_to_edit == contact[info]["ID"] :       
-                                                    contact[info]["address"] = new_addr                
+                                            elif choose == "c!" : 
+                                                edit_info(person)
+                                            else : 
+                                                print("\n%s not found! try again."%choose)
+                                                sub_edit()    
+                                        sub_edit()   
 
-                                    elif choose.capitalize() == "C" : 
+                                    elif id_to_edit == "c!" :   
                                         edit_info(person)
-
+                                    else : 
+                                        print("\nwrong answer! try again.")
+                                        edit_row()
+                        edit_row()
                     # back to main menu 
                     elif item == "q!" :    
                         programe() 
                     else:
-                        print("wrong answer! try again.")
+                        print("\nwrong answer! try again.")
                         edit_info(person)  
                 edit_info(person)   
             else : 
