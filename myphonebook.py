@@ -22,7 +22,7 @@ def check(item,n):
     global max_char
     max_char = False
   else:
-    print("\nmax length is %i! try again."%n)
+    print("max length is %i! try again."%n)
 
 # open phone book data
 try : 
@@ -77,6 +77,7 @@ def programe():
     # add new contact    
     elif choose == "2" :
         clear()
+        # make an id for each contact name
         global contact_id
         contact_id = 0
         def add_a_name():           
@@ -109,18 +110,27 @@ def programe():
                     contact_id = contact_id + 1
                 contact_dict = {}
 
-                # input phone number and check for maximum  character 
+                # input phone number and check for validation and max limit
                 max_char = True
                 while max_char  :
-                    phone = input("please enter phone number for %s's %s: "%(name,contact_name))
-                    check(phone,15)
-
+                    try : 
+                        phone = int(input("please enter phone number for %s's %s: "%(name,contact_name)))
+                        phone = str(phone)
+                        check(phone,15)
+                    except : 
+                        print("\nThis is not a phone number! try again")
+                   
                 # input email and check for maximum character 
                 max_char = True
                 while max_char  :
                     mail = input("please enter email for %s's %s: "%(name,contact_name))
-                    check(mail,30)
+                    # check valid email
+                    if re.match(".+\@.+\..{2,5}$", mail):
+                        check(mail,30)
+                    else :
+                        print("\nThis is not an email! try again.")     
 
+                        
                 # input address and check for maximum  character 
                 max_char = True
                 while max_char  :
@@ -173,6 +183,7 @@ You can search by name, number and email (q! to Menu) :
     3) by email
 
     :? """)
+            back(search_by)
             # by name    
             if search_by == "1" : 
                 name = input("\nplease enter the name : ")
@@ -219,8 +230,6 @@ You can search by name, number and email (q! to Menu) :
                 if not S : 
                     print("\n%s not found!"%email)    
                     search()
-            elif search_by == "q!" : 
-                programe()
             else : 
                 print("\nwrong answer! try again.")
                 search()
@@ -318,15 +327,22 @@ You can search by name, number and email (q! to Menu) :
                         # add new phone number
                         max_char = True
                         while max_char  :
-                            phone = input("\nplease enter phone number: ")
-                            check(phone,15)
+                            try : 
+                                phone = int(input("\nplease enter phone number: "))
+                                phone = str(phone)
+                                check(phone,15)
+                            except : 
+                                print("This is not a phone number! try again")
                         
                         # add new email
                         max_char = True
                         while max_char  :
                             mail = input("\nplease enter email: ")
-                            check(mail,30)
-
+                            # check valid email
+                            if re.match(".+\@.+\..{2,5}$", mail):
+                                check(mail,30)
+                            else :
+                                print("this is not an email! try again.")
                         # add new address    
                         max_char = True
                         while max_char  :
@@ -395,8 +411,12 @@ You can search by name, number and email (q! to Menu) :
                                             elif choose == "3" : 
                                                 max_char = True
                                                 while max_char : 
-                                                    new_phone_number = input("Enter new phone number: ")
-                                                    check(new_phone_number,15)
+                                                    try :
+                                                        new_phone_number = int(input("Enter new phone number: "))
+                                                        new_phone_number = str(new_phone_number)
+                                                        check(new_phone_number,15)
+                                                    except : 
+                                                        print("\nThis is not a phone number! try again")
                                                 if not max_char : 
                                                     for contact in phone_book[person]:
                                                         for info in contact :    
@@ -410,7 +430,11 @@ You can search by name, number and email (q! to Menu) :
                                                 max_char = True
                                                 while max_char : 
                                                     new_email = input("Enter new email: ")
-                                                    check(new_email,30)
+                                                    # check valid email
+                                                    if re.match(".+\@.+\..{2,5}$", new_email):
+                                                        check(new_email,30)
+                                                    else : 
+                                                        print("\nThis is not an email! try again.")    
                                                 if not max_char :    
                                                     for contact in phone_book[person]:
                                                         for info in contact :    
