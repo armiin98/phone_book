@@ -8,7 +8,7 @@ This is a simple phone book project with python3
 4. Install requirements         : `pip install -r requirements.txt`,
 5. Run myphonebook.py           : `python myphonebook.py`
 
-### Programme is like this : 
+### Programme Environnement : 
 
     >> Test's informations: 
 
@@ -31,4 +31,4 @@ This is a simple phone book project with python3
     6) SAVE CHANGES
     7) Exit
 
-    Please select an Option: 
+    Please Select An Option: 
