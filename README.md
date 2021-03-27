@@ -1,5 +1,5 @@
 # phone book
-This is a simple phone book project with python3
+This is a simple phone book project with python3 written by Armin Nasirfam
 
 ## How to run 
 1. Make sure you have installed : `python3` & `pip`,

@@ -1,4 +1,4 @@
-### a simple phone book project with python written by armin  ###
+### a simple phone book project with python written by Armin Nasirfam ###
 
 # import regex
 import re
