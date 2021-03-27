@@ -125,7 +125,7 @@ def programe():
                 while max_char  :
                     mail = input("please enter email for %s's %s: "%(name,contact_name))
                     # check valid email
-                    if re.match(".+\@.+\..{2,5}$", mail):
+                    if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", mail):
                         check(mail,30)
                     else :
                         print("\nThis is not an email! try again.")     
@@ -339,7 +339,7 @@ You can search by name, number and email (q! to Menu) :
                         while max_char  :
                             mail = input("\nplease enter email: ")
                             # check valid email
-                            if re.match(".+\@.+\..{2,5}$", mail):
+                            if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", mail):
                                 check(mail,30)
                             else :
                                 print("this is not an email! try again.")
@@ -412,7 +412,7 @@ You can search by name, number and email (q! to Menu) :
                                                 max_char = True
                                                 while max_char : 
                                                     try :
-                                                        new_phone_number = int(input("Enter new phone number: "))
+                                                        new_phone_number = int(input("\nEnter new phone number: "))
                                                         new_phone_number = str(new_phone_number)
                                                         check(new_phone_number,15)
                                                     except : 
@@ -429,9 +429,9 @@ You can search by name, number and email (q! to Menu) :
                                             elif choose == "4" : 
                                                 max_char = True
                                                 while max_char : 
-                                                    new_email = input("Enter new email: ")
+                                                    new_email = input("\nEnter new email: ")
                                                     # check valid email
-                                                    if re.match(".+\@.+\..{2,5}$", new_email):
+                                                    if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", new_email):
                                                         check(new_email,30)
                                                     else : 
                                                         print("\nThis is not an email! try again.")    
@@ -447,14 +447,14 @@ You can search by name, number and email (q! to Menu) :
                                             elif choose == "5" : 
                                                 max_char = True
                                                 while max_char : 
-                                                    new_addr = input("Enter new address: ")
+                                                    new_addr = input("\nEnter new address: ")
                                                     check(new_addr,40)
                                                 if not max_char :    
                                                     for contact in phone_book[person]:
                                                         for info in contact :    
                                                             if id_to_edit  == contact[info]["ID"] :       
                                                                 contact[info]["address"] = new_addr
-                                                                print("\naddress changed to %s"%new_addr)
+                                                                print("\nAddress changed to %s"%new_addr)
                                                                 sub_edit()                
 
                                             elif choose == "6" : 
