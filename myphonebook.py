@@ -239,13 +239,14 @@ You can search by name, number and email (q! to Menu) :
             person = person.capitalize()
             if person in phone_book : 
                 def edit_info(person):
-                    item = input("""\nwhat do you want to do? (q! to Menu)
+                    item = input("""\nwhat do you want to do?
     
     1) show contact info
     2) edit name
     3) remove a row
     4) add a row
     5) edit a row
+    6) exit
 
     :? """)
                     #show info of contact
@@ -338,15 +339,18 @@ You can search by name, number and email (q! to Menu) :
                         edit_info(person)
                     
                     # edit a row
-                    elif item == "5" : 
+                    elif item == "5" :    
                         def edit_row():
-                            id_to_edit = input("\nEnter ID to edit the row (c! for cancel): ")   
+                            id_to_edit = input("\nEnter ID to edit the row (c! for cancel): ") 
+                            S = False
                             for contact in phone_book[person]:
                                 for info in contact :          
                                     if id_to_edit == contact[info]["ID"]:
+                                        S = True
                                         clear()
                                         def sub_edit():
-                                            choose = input("""\nwhat are you gonna do (c! for cancel)?
+                                            new_id = ""
+                                            choose = input("""\nwhat are you gonna do?
 
     0) show row info
     1) edit ID
@@ -354,9 +358,11 @@ You can search by name, number and email (q! to Menu) :
     3) edit Phone number
     4) edit E-mail
     5) edit Address
+    6) exit
 
     ?: """)                         
                                             if choose == "0" : 
+                                                clear()
                                                 show(person)
                                                 sub_edit()                                   
                                             # edit id
@@ -364,52 +370,53 @@ You can search by name, number and email (q! to Menu) :
                                                 new_id = input("\nEnter new ID: ")
                                                 for contact in phone_book[person]:
                                                     for info in contact :    
-                                                        if id_to_edit == contact[info]["ID"] :       
+                                                        if id_to_edit or new_id == contact[info]["ID"] :       
                                                             contact[info]["ID"] = new_id
                                                             print("\nID changed to %s"%new_id)
-                                                            edit_row()
+                                                            is_id_edited = True
+                                                            sub_edit()
 
                                             # edit contact name
                                             elif choose == "2" : 
                                                 new_contact_name = input("\nEnter new contact name: ")
                                                 for contact in phone_book[person]:
                                                     for info in contact :
-                                                        if id_to_edit == contact[info]["ID"]:
+                                                        if id_to_edit or new_id == contact[info]["ID"]:
                                                             contact[new_contact_name] = contact.pop(info)
                                                             print("\ncontact name changed to %s"%new_contact_name)
-                                                            edit_row()
+                                                            sub_edit()
                                         
                                         # edit phone number
                                             elif choose == "3" : 
                                                 new_phone_number = input("Enter new phone number: ")
                                                 for contact in phone_book[person]:
                                                     for info in contact :    
-                                                        if id_to_edit == contact[info]["ID"] :       
+                                                        if id_to_edit or new_id == contact[info]["ID"] :       
                                                             contact[info]["phone"] = new_phone_number       
                                                             print("\nphone number changed to %s"%new_phone_number)
-                                                            edit_row()
+                                                            sub_edit()
                                         
                                             # edit email
                                             elif choose == "4" : 
                                                 new_email = input("Enter new email: ")
                                                 for contact in phone_book[person]:
                                                     for info in contact :    
-                                                        if id_to_edit == contact[info]["ID"] :       
+                                                        if id_to_edit or new_id == contact[info]["ID"] :       
                                                             contact[info]["email"] = new_email 
                                                             print("\nemail changed to %s"%new_email)
-                                                            edit_row()
+                                                            sub_edit()
 
                                             # edit address
                                             elif choose == "5" : 
                                                 new_addr = input("Enter new address: ")
                                                 for contact in phone_book[person]:
                                                     for info in contact :    
-                                                        if id_to_edit == contact[info]["ID"] :       
+                                                        if id_to_edit or new_id == contact[info]["ID"] :       
                                                             contact[info]["address"] = new_addr
                                                             print("\naddress changed to %s"%new_addr)
-                                                            edit_row()                
+                                                            sub_edit()                
 
-                                            elif choose == "c!" : 
+                                            elif choose == "6" : 
                                                 edit_info(person)
                                             else : 
                                                 print("\n%s not found! try again."%choose)
@@ -418,12 +425,12 @@ You can search by name, number and email (q! to Menu) :
 
                                     elif id_to_edit == "c!" :   
                                         edit_info(person)
-                                    else : 
-                                        print("\nwrong answer! try again.")
-                                        edit_row()
+                            if not S : 
+                                print("%s not found! try again."%id_to_edit)
+                                edit_row()
                         edit_row()
                     # back to main menu 
-                    elif item == "q!" :    
+                    elif item == "6" :    
                         programe() 
                     else:
                         print("\nwrong answer! try again.")
