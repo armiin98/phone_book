@@ -353,34 +353,30 @@ You can search by name, number and email (q! to Menu) :
                                             global max_char
                                             choose = input("""\nwhat are you gonna do?
 
-    0) show row info
-    1) edit ID
+    1) show row info
     2) edit Contact Name
     3) edit Phone number
     4) edit E-mail
     5) edit Address
     6) exit
 
-    ?: """)                         
-                                            if choose == "0" : 
+    ?: """)                                 # show table
+                                            if choose == "1" : 
                                                 clear()
-                                                show(person)
+                                                print(Fore.BLUE+"\n>> %s"%person,Style.RESET_ALL,"'s informations: \n",sep="")
+                                                # decrate before printing contacts
+                                                print("      ","+","="*4,"+","="*15,"+","="*15,"+","="*30,"+","="*40,"+",sep="")
+                                                print("      ","|",Fore.RED+"ID".center(4),Style.RESET_ALL,"|",Fore.RED+"CONTACT NAME".center(15),Style.RESET_ALL,"|",Fore.RED+"PHONE NUMBER".center(15),Style.RESET_ALL,"|",Fore.RED+"E-MAIL".center(30),Style.RESET_ALL,"|",Fore.RED+"ADDRESS".center(40),Style.RESET_ALL,"|",sep="")
+                                                print("      ","+","="*4,"+","="*15,"+","="*15,"+","="*30,"+","="*40,"+",sep="")
+                                                for contact in phone_book[person]:
+                                                    for info in contact : 
+                                                        # just print a row that user wants
+                                                        if id_to_edit == contact[info]["ID"] : 
+                                                            print("      ","|",Fore.GREEN+contact[info]["ID"].center(4),Style.RESET_ALL,"|",info.center(15),"|",contact[info]["phone"].center(15),"|",contact[info]["email"].center(30),"|",contact[info]["address"].center(40),"|",sep="")  
+                                                            print("      ","+","-"*4,"+","-"*15,"+","-"*15,"+","-"*30,"+","-"*40,"+",sep="")
+
                                                 sub_edit()                                   
-                                            # edit id
-                                            elif choose == "1" : 
-                                                max_char = True
-                                                while max_char : 
-                                                    new_id = input("\nEnter new ID: ")
-                                                    check(new_id,4)
-                                                if not max_char : 
-                                                    for contact in phone_book[person]:
-                                                        for info in contact :    
-                                                            if id_to_edit or new_id == contact[info]["ID"] :       
-                                                                contact[info]["ID"] = new_id
-                                                                print("\nID changed to %s"%new_id)
-                                                                sub_edit()
-
-
+                                            
                                             # edit contact name
                                             elif choose == "2" : 
                                                 max_char = True
@@ -390,7 +386,7 @@ You can search by name, number and email (q! to Menu) :
                                                 if not max_char :     
                                                     for contact in phone_book[person]:
                                                         for info in contact :
-                                                            if id_to_edit or new_id == contact[info]["ID"]:
+                                                            if id_to_edit  == contact[info]["ID"]:
                                                                 contact[new_contact_name] = contact.pop(info)
                                                                 print("\ncontact name changed to %s"%new_contact_name)
                                                                 sub_edit()
@@ -404,7 +400,7 @@ You can search by name, number and email (q! to Menu) :
                                                 if not max_char : 
                                                     for contact in phone_book[person]:
                                                         for info in contact :    
-                                                            if id_to_edit or new_id == contact[info]["ID"] :       
+                                                            if id_to_edit == contact[info]["ID"] :       
                                                                 contact[info]["phone"] = new_phone_number       
                                                                 print("\nphone number changed to %s"%new_phone_number)
                                                                 sub_edit()
@@ -418,7 +414,7 @@ You can search by name, number and email (q! to Menu) :
                                                 if not max_char :    
                                                     for contact in phone_book[person]:
                                                         for info in contact :    
-                                                            if id_to_edit or new_id == contact[info]["ID"] :       
+                                                            if id_to_edit  == contact[info]["ID"] :       
                                                                 contact[info]["email"] = new_email 
                                                                 print("\nemail changed to %s"%new_email)
                                                                 sub_edit()
@@ -432,7 +428,7 @@ You can search by name, number and email (q! to Menu) :
                                                 if not max_char :    
                                                     for contact in phone_book[person]:
                                                         for info in contact :    
-                                                            if id_to_edit or new_id == contact[info]["ID"] :       
+                                                            if id_to_edit  == contact[info]["ID"] :       
                                                                 contact[info]["address"] = new_addr
                                                                 print("\naddress changed to %s"%new_addr)
                                                                 sub_edit()                
