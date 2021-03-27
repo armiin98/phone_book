@@ -49,19 +49,19 @@ def programe():
     5) EDIT A CONTACT
     6) SAVE CHANGES
     7) Exit\n""")
-    choose = input("Please select an Option: ")
+    choose = input("    Please select an Option: ")
 
     # this function shows persons information in a table
     def show(person):
         print(Fore.BLUE+"\n>> %s"%person,Style.RESET_ALL,"'s informations: \n",sep="")
         # decrate before printing contacts
-        print("      ","+","="*4,"+","="*15,"+","="*15,"+","="*30,"+","="*40,"+",sep="")
-        print("      ","|",Fore.RED+"ID".center(4),Style.RESET_ALL,"|",Fore.RED+"CONTACT NAME".center(15),Style.RESET_ALL,"|",Fore.RED+"PHONE NUMBER".center(15),Style.RESET_ALL,"|",Fore.RED+"E-MAIL".center(30),Style.RESET_ALL,"|",Fore.RED+"ADDRESS".center(40),Style.RESET_ALL,"|",sep="")
-        print("      ","+","="*4,"+","="*15,"+","="*15,"+","="*30,"+","="*40,"+",sep="")
+        print("     ","+","="*4,"+","="*15,"+","="*15,"+","="*30,"+","="*40,"+",sep="")
+        print("     ","|",Fore.RED+"ID".center(4),Style.RESET_ALL,"|",Fore.RED+"CONTACT NAME".center(15),Style.RESET_ALL,"|",Fore.RED+"PHONE NUMBER".center(15),Style.RESET_ALL,"|",Fore.RED+"E-MAIL".center(30),Style.RESET_ALL,"|",Fore.RED+"ADDRESS".center(40),Style.RESET_ALL,"|",sep="")
+        print("     ","+","="*4,"+","="*15,"+","="*15,"+","="*30,"+","="*40,"+",sep="")
         for contact in phone_book[person]:
             for info in contact : 
-                print("      ","|",Fore.GREEN+contact[info]["ID"].center(4),Style.RESET_ALL,"|",info.center(15),"|",contact[info]["phone"].center(15),"|",contact[info]["email"].center(30),"|",contact[info]["address"].center(40),"|",sep="")  
-                print("      ","+","-"*4,"+","-"*15,"+","-"*15,"+","-"*30,"+","-"*40,"+",sep="")
+                print("     ","|",Fore.GREEN+contact[info]["ID"].center(4),Style.RESET_ALL,"|",info.center(15),"|",contact[info]["phone"].center(15),"|",contact[info]["email"].center(30),"|",contact[info]["address"].center(40),"|",sep="")  
+                print("     ","+","-"*4,"+","-"*15,"+","-"*15,"+","-"*30,"+","-"*40,"+",sep="")
             
     # print phone book
     if choose == "1" : 
@@ -365,15 +365,15 @@ You can search by name, number and email (q! to Menu) :
                                                 clear()
                                                 print(Fore.BLUE+"\n>> %s"%person,Style.RESET_ALL,"'s informations: \n",sep="")
                                                 # decrate before printing contacts
-                                                print("      ","+","="*4,"+","="*15,"+","="*15,"+","="*30,"+","="*40,"+",sep="")
-                                                print("      ","|",Fore.RED+"ID".center(4),Style.RESET_ALL,"|",Fore.RED+"CONTACT NAME".center(15),Style.RESET_ALL,"|",Fore.RED+"PHONE NUMBER".center(15),Style.RESET_ALL,"|",Fore.RED+"E-MAIL".center(30),Style.RESET_ALL,"|",Fore.RED+"ADDRESS".center(40),Style.RESET_ALL,"|",sep="")
-                                                print("      ","+","="*4,"+","="*15,"+","="*15,"+","="*30,"+","="*40,"+",sep="")
+                                                print("     ","+","="*4,"+","="*15,"+","="*15,"+","="*30,"+","="*40,"+",sep="")
+                                                print("     ","|",Fore.RED+"ID".center(4),Style.RESET_ALL,"|",Fore.RED+"CONTACT NAME".center(15),Style.RESET_ALL,"|",Fore.RED+"PHONE NUMBER".center(15),Style.RESET_ALL,"|",Fore.RED+"E-MAIL".center(30),Style.RESET_ALL,"|",Fore.RED+"ADDRESS".center(40),Style.RESET_ALL,"|",sep="")
+                                                print("     ","+","="*4,"+","="*15,"+","="*15,"+","="*30,"+","="*40,"+",sep="")
                                                 for contact in phone_book[person]:
                                                     for info in contact : 
                                                         # just print a row that user wants
                                                         if id_to_edit == contact[info]["ID"] : 
-                                                            print("      ","|",Fore.GREEN+contact[info]["ID"].center(4),Style.RESET_ALL,"|",info.center(15),"|",contact[info]["phone"].center(15),"|",contact[info]["email"].center(30),"|",contact[info]["address"].center(40),"|",sep="")  
-                                                            print("      ","+","-"*4,"+","-"*15,"+","-"*15,"+","-"*30,"+","-"*40,"+",sep="")
+                                                            print("     ","|",Fore.GREEN+contact[info]["ID"].center(4),Style.RESET_ALL,"|",info.center(15),"|",contact[info]["phone"].center(15),"|",contact[info]["email"].center(30),"|",contact[info]["address"].center(40),"|",sep="")  
+                                                            print("     ","+","-"*4,"+","-"*15,"+","-"*15,"+","-"*30,"+","-"*40,"+",sep="")
 
                                                 sub_edit()                                   
                                             
