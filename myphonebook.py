@@ -36,7 +36,7 @@ try :
 except FileNotFoundError : 
     phone_book = {}   
 
-# a varible to check if changes saved or not 
+# a boolean to check if changes saved or not 
 global SAVE
 SAVE = True
 
