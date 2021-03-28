@@ -22,7 +22,7 @@ def check(item,n):
     global max_char
     max_char = False
   else:
-    print("max length is %i! try again."%n)
+    print(Fore.RED+"\nmax length is %i! try again.\n"%n,Style.RESET_ALL)
 
 # open phone book data
 try : 
@@ -90,12 +90,10 @@ def programe():
                 contact_list = []
                 # check new contact exist in phone book or not
                 if name in phone_book : 
-                    print("\n%s exist in phone book!\n"%name)
-                    add_a_name()
-                else:
-                    pass        
+                    print(Fore.RED+"\n%s exist in phone book!\n"%name,Style.RESET_ALL)
+                    add_a_name()       
             else : 
-                print("wrong input! you can use a-z,and white space for your name! try again.")
+                print(Fore.RED+"\nwrong input! you can use a-z,and white space for your name! try again.\n",Style.RESET_ALL)
                 add_a_name()    
 
             # add a contact name like : home, work, ...
@@ -118,17 +116,17 @@ def programe():
                         phone = str(phone)
                         check(phone,15)
                     except : 
-                        print("\nThis is not a phone number! try again")
+                        print(Fore.RED+"\nThis is not a phone number! try again\n",Style.RESET_ALL)
                    
-                # input email and check for maximum character 
+                # input email and check for validation and max limit
                 max_char = True
                 while max_char  :
-                    mail = input("please enter email for %s's %s: "%(name,contact_name))
+                    mail = input("Please enter email for %s's %s: "%(name,contact_name))
                     # check valid email
                     if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", mail):
                         check(mail,30)
                     else :
-                        print("\nThis is not an email! try again.")     
+                        print(Fore.RED+"\nThis is not an email! try again.\n",Style.RESET_ALL)     
 
                         
                 # input address and check for maximum  character 
@@ -136,7 +134,8 @@ def programe():
                 while max_char  :
                     addr = input("please enter address for %s's %s: "%(name,contact_name))
                     check(addr,40)
-
+                    
+                # add this inputs to phone book
                 contact_dict[contact_name]={"ID":str(contact_id),"phone":phone,"email":mail,"address":addr}
                 contact_list.append(contact_dict)
 
@@ -147,9 +146,10 @@ def programe():
                         add_a_contact_name()
                     elif answer.upper() == "N":
                         phone_book[name]=contact_list
+                        print(Fore.GREEN+"\n\"%s\" succesfully added to your phone book!"%name,Style.RESET_ALL)
                         programe()    
                     else : 
-                        print("wrong answer! try again. ")
+                        print(Fore.RED+"\nwrong answer! try again.\n",Style.RESET_ALL)
                         add_contact()
                 add_contact()            
             add_a_contact_name()        
