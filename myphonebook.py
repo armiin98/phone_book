@@ -53,7 +53,7 @@ def programe():
     5) EDIT A CONTACT
     6) SAVE CHANGES
     7) Exit\n""")
-    choose = input("    Please select an Option: ")
+    choose = input("    Please select an Option: ")    
 
     # this function shows persons information in a table
     def show(person):
@@ -248,16 +248,17 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
     # edit contact
     elif choose == "5":
         clear()
+        # this try statement created because if name has changed by user, user does not have to enter new name again to run edit option
         def edit():
             try : 
                 person = new_name
             except :     
-                person = input("\nenter the name of contact you want to edit (q! to menu): ")
+                person = input("\nEnter the name of contact you want to edit (q! to menu): ")
             back(person)
             person = person.capitalize()
             if person in phone_book : 
                 def edit_info(person):
-                    item = input("""\nwhat do you want to do?
+                    item = input("""\nWhat do you want to do?
     
     1) show contact info
     2) edit name
@@ -269,60 +270,62 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
     :? """)
                     global SAVE
                     SAVE = False
+
                     #show info of contact
                     if item == "1" :
                         clear()
                         show(person)
                         edit_info(person)
+
                     # change the name
                     elif item == "2" :
                         def change_name():
                             global new_name
-                            new_name = input("\nplease enter a new name (enter c! for cancel): ")
+                            new_name = input("\nPlease enter a new name (enter c! for cancel): ")
+                            # c! for canceling this opration
                             if new_name == "c!" : 
                                 edit_info(person)
                             else:
                                 new_name = new_name.capitalize()    
                                 # check if new name exist in phone book or not 
                                 if new_name in phone_book : 
-                                    print("\n%s exist in phone book! choose another name."%new_name)
+                                    print(Fore.RED+"\n\"%s\" Exist in phone book! choose another name."%new_name,Style.RESET_ALL)
                                     change_name()
                                 else:
                                     pass
                                 # check for valid name
                                 if re.match("^[a-zA-Z ]+$", new_name):
                                     phone_book[new_name] = phone_book.pop(person)
-                                    print("\nname changed to %s!"%new_name)
+                                    print(Fore.GREEN+"\nName changed to \"%s\" !"%new_name,Style.RESET_ALL)
                                     SAVE = False
                                     # after the name was change , edit function has to start again
                                     edit()
                                 else : 
-                                    print(Fore.RED+"\nWrong input! you can use \"english alphabet\" and \"white space\" for your name! try again.\n",Style.RESET_ALL)
-
+                                    print(Fore.RED+"\nWrong input! you can use \"english alphabet\" and \"white space\" for your name! try again.",Style.RESET_ALL)
                                     change_name()
                         change_name()
 
-                    # delete the contact name
+                    # delete a row
                     elif item == "3" :
                         S = False
-                        id_to_del = str(input("\nEnter ID to delete that row : "))
+                        id_to_del = str(input("\nEnter ID to delete that row (enter c! for cancel): "))
+                        if id_to_del == "c!" : 
+                            edit_info(person)
                         for contact in phone_book[person]:
                             for info in contact :
                                 if id_to_del in  list(contact[info]["ID"]) : 
                                     S = True
                                     phone_book[person].remove(contact)
-                                    print("\nrow %s removed!"%id_to_del)
+                                    print(Fore.GREEN+"\nRow \"%s\" removed!"%id_to_del,Style.RESET_ALL)
                                     SAVE = False
                                     break
                         if not S : 
-                            print("\nrow %s not found!"%id_to_del)    
-
+                            print(Fore.RED+"\nRow \"%s\" not found!"%id_to_del,Style.RESET_ALL)    
                         edit_info(person)
 
-                    # add contact name
+                    # add a row
                     elif item == "4" : 
                         global max_char
-                        
                         # read contact id ; if there was no row , id would be 1
                         try : 
                             for contact in phone_book[person]:
@@ -331,10 +334,13 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
                             contact_id = str(contact_id + 1)  
                         except : 
                             contact_id = 1      
-                                                    
+
+                        # add new contact name                          
                         max_char = True
                         while max_char  :
-                            new_contact_name = input("\nplease enter new contact name to add: ")
+                            new_contact_name = input("\nPlease enter new contact name to add (enter c! for cancel): ")
+                            if new_contact_name == "c!" : 
+                                edit_info(person)
                             check(new_contact_name,15)
                         contact_dict = {}
 
@@ -342,30 +348,32 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
                         max_char = True
                         while max_char  :
                             try : 
-                                phone = int(input("\nplease enter phone number: "))
+                                phone = int(input("Please enter phone number: "))
                                 phone = str(phone)
                                 check(phone,15)
                             except : 
-                                print("This is not a phone number! try again")
+                                print(Fore.RED+"\nThis is not a phone number! try again\n",Style.RESET_ALL)
                         
                         # add new email
                         max_char = True
                         while max_char  :
-                            mail = input("\nplease enter email: ")
+                            mail = input("Please enter email: ")
                             # check valid email
                             if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", mail):
                                 check(mail,30)
                             else :
-                                print("this is not an email! try again.")
+                                print(Fore.RED+"\nThis is not an email! try again.\n",Style.RESET_ALL)
+
                         # add new address    
                         max_char = True
                         while max_char  :
-                            addr = input("\nplease enter address: ")
+                            addr = input("Please enter address: ")
                             check(addr,40)
 
+                        # add informations to phone book
                         contact_dict[new_contact_name]={"ID":str(contact_id),"phone":phone,"email":mail,"address":addr}
                         phone_book[person].append(contact_dict)
-                        print("\n%s successfully added :)"%new_contact_name)
+                        print(Fore.GREEN+"\n\"%s\" successfully added!"%new_contact_name,Style.RESET_ALL)
                         SAVE = False
                         edit_info(person)
                     
@@ -419,7 +427,7 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
                                                         for info in contact :
                                                             if id_to_edit  == contact[info]["ID"]:
                                                                 contact[new_contact_name] = contact.pop(info)
-                                                                print("\ncontact name changed to %s"%new_contact_name)
+                                                                print(Fore.GREEN+"\ncontact name changed to \"%s\""%new_contact_name,Style.RESET_ALL)
                                                                 SAVE = False
                                                                 sub_edit()
                                         
@@ -432,13 +440,13 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
                                                         new_phone_number = str(new_phone_number)
                                                         check(new_phone_number,15)
                                                     except : 
-                                                        print("\nThis is not a phone number! try again")
+                                                        print(Fore.RED+"\nThis is not a phone number! try again",Style.RESET_ALL)
                                                 if not max_char : 
                                                     for contact in phone_book[person]:
                                                         for info in contact :    
                                                             if id_to_edit == contact[info]["ID"] :       
                                                                 contact[info]["phone"] = new_phone_number       
-                                                                print("\nphone number changed to %s"%new_phone_number)
+                                                                print(Fore.GREEN+"\nphone number changed to \"%s\""%new_phone_number,Style.RESET_ALL)
                                                                 SAVE = False
                                                                 sub_edit()
                                         
@@ -451,13 +459,13 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
                                                     if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", new_email):
                                                         check(new_email,30)
                                                     else : 
-                                                        print("\nThis is not an email! try again.")    
+                                                        print(Fore.RED+"\nThis is not an email! try again.",Style.RESET_ALL)    
                                                 if not max_char :    
                                                     for contact in phone_book[person]:
                                                         for info in contact :    
                                                             if id_to_edit  == contact[info]["ID"] :       
                                                                 contact[info]["email"] = new_email 
-                                                                print("\nemail changed to %s"%new_email)
+                                                                print(Fore.GREEN+"\nemail changed to \"%s\""%new_email,Style.RESET_ALL)
                                                                 SAVE = False
                                                                 sub_edit()
 
@@ -472,31 +480,38 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
                                                         for info in contact :    
                                                             if id_to_edit  == contact[info]["ID"] :       
                                                                 contact[info]["address"] = new_addr
-                                                                print("\nAddress changed to %s"%new_addr)  
+                                                                print(Fore.GREEN+"\nAddress changed to \"%s\""%new_addr,Style.RESET_ALL)  
                                                                 SAVE = False                                                              
                                                                 sub_edit()                
                                             elif choose == "6" : 
                                                 edit_info(person)
                                             else : 
-                                                print("\n%s not found! try again."%choose)
+                                                print(Fore.RED+"\nWrong answer! try again.",Style.RESET_ALL)
                                                 sub_edit()    
                                         sub_edit()   
 
                                     elif id_to_edit == "c!" :   
                                         edit_info(person)
                             if not S : 
-                                print("\n%s not found! try again."%id_to_edit)
+                                print(Fore.RED+"\n\"%s\" not found! try again."%id_to_edit,Style.RESET_ALL)
                                 edit_row()
                         edit_row()
+
                     # back to main menu 
-                    elif item == "6" :    
+                    elif item == "6" :
+                        try : 
+                            global new_name
+                            del new_name
+                        except : 
+                            pass
+
                         programe() 
                     else:
-                        print("\nwrong answer! try again.")
+                        print(Fore.RED+"\nWrong answer! try again.",Style.RESET_ALL)
                         edit_info(person)  
                 edit_info(person)   
             else : 
-                    print("\n%s not found! try again."%person)
+                    print(Fore.RED+"\n%s not found! try again."%person,Style.RESET_ALL)
                     edit()  
         edit()
         programe()
@@ -513,11 +528,13 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
     
     # exit          
     elif choose == "7" : 
+        # exit, if changes have been saved
         if SAVE == True : 
             clear()
             print("BYE!")
             exit()
         elif SAVE == False : 
+            # ask to exit or not
             print("\n    The changes have not been saved yet! quit anyway?",Fore.RED+"(y/n): ",Style.RESET_ALL,end="")
             answer = input("") 
             if answer.upper() == "Y" : 
@@ -526,8 +543,6 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
                 exit()
             else : 
                 programe()
-    
-
 
     # wrong answer
     else:
