@@ -347,6 +347,7 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
                         # add new phone number
                         max_char = True
                         while max_char  :
+                            # check for vakid phone number
                             try : 
                                 phone = int(input("Please enter phone number: "))
                                 phone = str(phone)
@@ -431,7 +432,7 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
                                                                 print(Fore.GREEN+"\ncontact name changed to \"%s\""%new_contact_name,Style.RESET_ALL)
                                                                 sub_edit()
                                         
-                                        # edit phone number
+                                            # edit phone number
                                             elif choose == "3" : 
                                                 max_char = True
                                                 while max_char : 
@@ -483,7 +484,9 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
                                                                 contact[info]["address"] = new_addr
                                                                 print(Fore.GREEN+"\nAddress changed to \"%s\""%new_addr,Style.RESET_ALL)  
                                                                 SAVE = False                                                              
-                                                                sub_edit()                
+                                                                sub_edit() 
+                                            
+                                            # exit and back to menu               
                                             elif choose == "6" : 
                                                 edit_info(person)
                                             else : 
@@ -536,7 +539,7 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
             print("BYE!")
             exit()
         elif SAVE == False : 
-            # ask to exit or not
+            # ask to exit or not when changes have not saved
             print("\n    The changes have not been saved yet! quit anyway?",Fore.RED+"(y/n): ",Style.RESET_ALL,end="")
             answer = input("") 
             if answer.upper() == "Y" : 
