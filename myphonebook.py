@@ -268,8 +268,6 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
     6) exit
 
     :? """)
-                    global SAVE
-                    SAVE = False
 
                     #show info of contact
                     if item == "1" :
@@ -297,6 +295,7 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
                                 if re.match("^[a-zA-Z ]+$", new_name):
                                     phone_book[new_name] = phone_book.pop(person)
                                     print(Fore.GREEN+"\nName changed to \"%s\" !"%new_name,Style.RESET_ALL)
+                                    global SAVE
                                     SAVE = False
                                     # after the name was change , edit function has to start again
                                     edit()
@@ -317,6 +316,7 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
                                     S = True
                                     phone_book[person].remove(contact)
                                     print(Fore.GREEN+"\nRow \"%s\" removed!"%id_to_del,Style.RESET_ALL)
+                                    global SAVE
                                     SAVE = False
                                     break
                         if not S : 
@@ -388,7 +388,6 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
                                         S = True
                                         clear()
                                         def sub_edit():
-                                            new_id = ""
                                             global max_char
                                             choose = input("""\nwhat are you gonna do?
 
@@ -422,19 +421,21 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
                                                 while max_char : 
                                                     new_contact_name = input("\nEnter new contact name: ")
                                                     check(new_contact_name,15)
-                                                if not max_char :     
+                                                if not max_char : 
+                                                    global SAVE
+                                                    SAVE = False    
                                                     for contact in phone_book[person]:
                                                         for info in contact :
                                                             if id_to_edit  == contact[info]["ID"]:
                                                                 contact[new_contact_name] = contact.pop(info)
                                                                 print(Fore.GREEN+"\ncontact name changed to \"%s\""%new_contact_name,Style.RESET_ALL)
-                                                                SAVE = False
                                                                 sub_edit()
                                         
                                         # edit phone number
                                             elif choose == "3" : 
                                                 max_char = True
                                                 while max_char : 
+                                                    # check for valid phone number
                                                     try :
                                                         new_phone_number = int(input("\nEnter new phone number: "))
                                                         new_phone_number = str(new_phone_number)
@@ -500,6 +501,7 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
                     # back to main menu 
                     elif item == "6" :
                         try : 
+                            # delete new name variable
                             global new_name
                             del new_name
                         except : 
