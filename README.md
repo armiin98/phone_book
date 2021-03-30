@@ -6,7 +6,7 @@ This is a simple phone book project with python3 written by Armin Nasirfam
 2. Clone the project            : `git clone https://github.com/armiin98/phone_book.git`.
 3. Go to the project directory  : `cd phone_book`,
 4. Install requirements         : `pip install -r requirements.txt`,
-5. Run myphonebook.py           : `python myphonebook.py`
+5. Run programe myphonebook.py           : `python myphonebook.py`
 
 ### Programme Environnement  
 
