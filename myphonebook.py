@@ -9,6 +9,12 @@ from colorama import Fore, Back, Style
 # IMPORT TIME MODULE
 import time
 
+#IMPORT ARGUMENT PARSER
+import argparse
+
+#IMPORT SYS
+import sys
+
 # CLEAR SCREAN
 from clear_screen import clear 
 
@@ -583,5 +589,16 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
     else:
         print(Fore.RED+"\n    Wrong! please select again. \n",Style.RESET_ALL)
         programe()           
+# programe
 
-programe()        
+#Get options from the command line
+def ArgumentParser():
+    #Define the options
+    parser = argparse.ArgumentParser(description="--> a program for save and read your contacts information <--")
+    parser.add_argument("name",help="Show contact information by name", nargs="*")
+    parser.add_argument("-v", "--verbosity", help="Show more information from contacts {Can not be used with [-A]}", action="store_true")
+    # Options that conflict each other
+    conflicts = parser.add_mutually_exclusive_group()
+    conflicts.add_argument("-A", help="Show all contact numbers", dest="ShowAll", action="store_true")
+    conflicts.add_argument("-n", "--number", help="Show contact information by number", dest="ContactNumber", type=int, required=False)
+
