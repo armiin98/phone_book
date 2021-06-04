@@ -602,3 +602,26 @@ def ArgumentParser():
     conflicts.add_argument("-A", help="Show all contact numbers", dest="ShowAll", action="store_true")
     conflicts.add_argument("-n", "--number", help="Show contact information by number", dest="ContactNumber", type=int, required=False)
 
+    #a function for show complet information (for verbosity option)
+    def CompletInfo(ContactName,pattern,PatternType):
+        global phone_book
+        # show additional information by name:
+        if PatternType == 'name':
+            for info in phone_book[pattern]:
+                for contact in info:
+                    if contact == ContactName:
+                        print("{0} ID --> {1}".format(ContactName,info[ContactName]['ID']))
+                        print("{0} Email --> {1}".format(ContactName,info[ContactName]['email']))
+                        print("{0} Address --> {1}".format(ContactName,info[ContactName]['address']))
+                        print(25*"-")
+        #show additional information by number:
+        elif PatternType == 'number':
+            for name in phone_book:
+                for info in phone_book[name]:
+                    for contact in info:
+                        if contact == ContactName:
+                            if info[ContactName]['phone'] == pattern:
+                                print("{0} ID --> {1}".format(ContactName, info[ContactName]['ID']))
+                                print("{0} Email --> {1}".format(ContactName, info[ContactName]['email']))
+                                print("{0} Address --> {1}".format(ContactName, info[ContactName]['address']))
+                                print(25*"-")
