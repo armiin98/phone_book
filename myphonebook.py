@@ -602,6 +602,8 @@ def ArgumentParser():
     conflicts.add_argument("-A", help="Show all contact numbers", dest="ShowAll", action="store_true")
     conflicts.add_argument("-n", "--number", help="Show contact information by number", dest="ContactNumber", type=int, required=False)
 
+    arguments = parser.parse_args()
+    
     #a function for show complet information (for verbosity option)
     def CompletInfo(ContactName,pattern,PatternType):
         global phone_book
@@ -625,3 +627,33 @@ def ArgumentParser():
                                 print("{0} Email --> {1}".format(ContactName, info[ContactName]['email']))
                                 print("{0} Address --> {1}".format(ContactName, info[ContactName]['address']))
                                 print(25*"-")
+    # if the input option was name:
+    def PrintInformation():
+        if arguments.name:
+            name =' '.join(arguments.name)
+            name = name.capitalize()
+            if name in phone_book:
+                print(Fore.CYAN+"--> {} <--".format(name), Style.RESET_ALL)
+                for contacts in phone_book[name]:
+                    for info in contacts:
+                        print("{0} phone --> {1}".format(info, contacts[info]['phone']))
+                        if arguments.verbosity:
+                            CompletInfo(info, name, 'name')
+            else:
+                print(Fore.RED+" Name not found\n",Style.RESET_ALL)
+        # check if the input option was number (-n):
+        if arguments.ContactNumber:
+            CheckInNumber = False
+            InputNumber = str(arguments.ContactNumber)
+            for name in phone_book:
+                for info in phone_book[name]:
+                    contacts = ''.join(info.keys())
+                    #check number in data
+                    if InputNumber == info[contacts]['phone']:
+                        CheckInNumber = True
+                        print(Fore.CYAN+"--> {} <--".format(name),Style.RESET_ALL)
+                        print("{0} phone --> {1}".format(contacts, info[contacts]['phone']))
+                        if arguments.verbosity:
+                            CompletInfo(contacts, InputNumber, 'number')
+            if not CheckInNumber:        
+                print(Fore.RED+" Number not found\n",Style.RESET_ALL)
