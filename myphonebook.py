@@ -663,6 +663,13 @@ def ArgumentParser():
                 for info in phone_book[name]:
                     contacts = ''.join(info.keys())
                     print(Fore.CYAN+"(%s)"%name, Style.RESET_ALL,"{1} number --> {2}".format(name, contacts, info[contacts]['phone']), Style.RESET_ALL)
+    #check invalid input options
+    try:
+        arguments = parser.parse_args()
+        PrintInformation()
+    except SystemExit:
+        print(Fore.RED+"use [-h] for show help message ",Style.RESET_ALL)
+                
     PrintInformation()
 
 #check for option
