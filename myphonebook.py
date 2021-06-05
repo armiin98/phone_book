@@ -589,7 +589,7 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
     else:
         print(Fore.RED+"\n    Wrong! please select again. \n",Style.RESET_ALL)
         programe()           
-# programe
+
 
 #Get options from the command line
 def ArgumentParser():
@@ -602,7 +602,6 @@ def ArgumentParser():
     conflicts.add_argument("-A", help="Show all contact numbers", dest="ShowAll", action="store_true")
     conflicts.add_argument("-n", "--number", help="Show contact information by number", dest="ContactNumber", type=int, required=False)
 
-    arguments = parser.parse_args()
 
     #a function for show complet information (for verbosity option)
     def CompletInfo(ContactName,pattern,PatternType):
@@ -674,6 +673,12 @@ def ArgumentParser():
 
 #check for option
 if len(sys.argv) == 1:
-    programe()
+    # show message when breaking the program
+    try:
+        programe()
+    except (EOFError, KeyboardInterrupt) as Erorrs:
+        print(Fore.RED+"\n\n<<< Ohh! program was broken.please try again >>>\n",Style.RESET_ALL)
+
 elif len(sys.argv) > 1:
     ArgumentParser()
+
