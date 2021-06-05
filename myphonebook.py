@@ -594,7 +594,8 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
 #Get options from the command line
 def ArgumentParser():
     #Define the options
-    parser = argparse.ArgumentParser(description="--> a program for save and read your contacts information <--")
+    parser = argparse.ArgumentParser(prog="myphonebook",description="--> a program for save and read your contacts information <--", 
+                                     epilog="E.g : {%(prog)s Test -v} this command show all of information Related to Test")
     parser.add_argument("name",help="Show contact information by name", nargs="*")
     parser.add_argument("-v", "--verbosity", help="Show more information from contacts {Can not be used with [-A]}", action="store_true")
     # Options that conflict each other
