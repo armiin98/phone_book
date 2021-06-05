@@ -669,7 +669,6 @@ def ArgumentParser():
     except SystemExit:
         print(Fore.RED+"use [-h] for show help message ",Style.RESET_ALL)
                 
-    PrintInformation()
 
 #check for option
 if len(sys.argv) == 1:
