@@ -35,7 +35,7 @@ This is a simple phone book project with python3 written by Armin Nasirfam
     
 ------------------------------------------------------------------------------------
     
-**comman line options**
+**command line options**
 
     positional arguments:
         name                  Show contact information by name. E.g : myphonbook.py [CONTACT NAME]
