@@ -603,7 +603,7 @@ def ArgumentParser():
     conflicts.add_argument("-n", "--number", help="Show contact information by number", dest="ContactNumber", type=int, required=False)
 
     arguments = parser.parse_args()
-    
+
     #a function for show complet information (for verbosity option)
     def CompletInfo(ContactName,pattern,PatternType):
         global phone_book
@@ -657,3 +657,16 @@ def ArgumentParser():
                             CompletInfo(contacts, InputNumber, 'number')
             if not CheckInNumber:        
                 print(Fore.RED+" Number not found\n",Style.RESET_ALL)
+        # check if input options was [-A]
+        if arguments.ShowAll:
+            for name in phone_book:
+                for info in phone_book[name]:
+                    contacts = ''.join(info.keys())
+                    print(Fore.CYAN+"(%s)"%name, Style.RESET_ALL,"{1} number --> {2}".format(name, contacts, info[contacts]['phone']), Style.RESET_ALL)
+    PrintInformation()
+
+#check for option
+if len(sys.argv) == 1:
+    programe()
+elif len(sys.argv) > 1:
+    ArgumentParser()
