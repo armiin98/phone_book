@@ -9,6 +9,12 @@ from colorama import Fore, Back, Style
 # IMPORT TIME MODULE
 import time
 
+#IMPORT ARGUMENT PARSER
+import argparse
+
+#IMPORT SYS
+import sys
+
 # CLEAR SCREAN
 from clear_screen import clear 
 
@@ -584,4 +590,95 @@ You can search by \"name\", \"number\" and \"email\" (q! to Menu) :
         print(Fore.RED+"\n    Wrong! please select again. \n",Style.RESET_ALL)
         programe()           
 
-programe()        
+
+#Get options from the command line
+def ArgumentParser():
+    #Define the options
+    parser = argparse.ArgumentParser(prog="myphonebook",description="--> a program for save and read your contacts information <--", 
+                                     epilog="E.g : {%(prog)s Test -v} this command show all of information Related to Test")
+    parser.add_argument("name",help="Show contact information by name", nargs="*")
+    parser.add_argument("-v", "--verbosity", help="Show more information from contacts {Can not be used with [-A]}", action="store_true")
+    # Options that conflict each other
+    conflicts = parser.add_mutually_exclusive_group()
+    conflicts.add_argument("-A", help="Show all contact numbers", dest="ShowAll", action="store_true")
+    conflicts.add_argument("-n", "--number", help="Show contact information by number", dest="ContactNumber", type=int, required=False)
+
+
+    #a function for show complet information (for verbosity option)
+    def CompletInfo(ContactName,pattern,PatternType):
+        global phone_book
+        # show additional information by name:
+        if PatternType == 'name':
+            for info in phone_book[pattern]:
+                for contact in info:
+                    if contact == ContactName:
+                        print("{0} ID --> {1}".format(ContactName,info[ContactName]['ID']))
+                        print("{0} Email --> {1}".format(ContactName,info[ContactName]['email']))
+                        print("{0} Address --> {1}".format(ContactName,info[ContactName]['address']))
+                        print(25*"-")
+        #show additional information by number:
+        elif PatternType == 'number':
+            for name in phone_book:
+                for info in phone_book[name]:
+                    for contact in info:
+                        if contact == ContactName:
+                            if info[ContactName]['phone'] == pattern:
+                                print("{0} ID --> {1}".format(ContactName, info[ContactName]['ID']))
+                                print("{0} Email --> {1}".format(ContactName, info[ContactName]['email']))
+                                print("{0} Address --> {1}".format(ContactName, info[ContactName]['address']))
+                                print(25*"-")
+    # if the input option was name:
+    def PrintInformation():
+        if arguments.name:
+            name =' '.join(arguments.name)
+            name = name.capitalize()
+            if name in phone_book:
+                print(Fore.CYAN+"--> {} <--".format(name), Style.RESET_ALL)
+                for contacts in phone_book[name]:
+                    for info in contacts:
+                        print("{0} phone --> {1}".format(info, contacts[info]['phone']))
+                        if arguments.verbosity:
+                            CompletInfo(info, name, 'name')
+            else:
+                print(Fore.RED+" Name not found\n",Style.RESET_ALL)
+        # check if the input option was number (-n):
+        if arguments.ContactNumber:
+            CheckInNumber = False
+            InputNumber = str(arguments.ContactNumber)
+            for name in phone_book:
+                for info in phone_book[name]:
+                    contacts = ''.join(info.keys())
+                    #check number in data
+                    if InputNumber == info[contacts]['phone']:
+                        CheckInNumber = True
+                        print(Fore.CYAN+"--> {} <--".format(name),Style.RESET_ALL)
+                        print("{0} phone --> {1}".format(contacts, info[contacts]['phone']))
+                        if arguments.verbosity:
+                            CompletInfo(contacts, InputNumber, 'number')
+            if not CheckInNumber:        
+                print(Fore.RED+" Number not found\n",Style.RESET_ALL)
+        # check if input options was [-A]
+        if arguments.ShowAll:
+            for name in phone_book:
+                for info in phone_book[name]:
+                    contacts = ''.join(info.keys())
+                    print(Fore.CYAN+"(%s)"%name, Style.RESET_ALL,"{1} number --> {2}".format(name, contacts, info[contacts]['phone']), Style.RESET_ALL)
+    #check invalid input options
+    try:
+        arguments = parser.parse_args()
+        PrintInformation()
+    except SystemExit:
+        print(Fore.RED+"use [-h] for show help message ",Style.RESET_ALL)
+                
+
+#check for option
+if len(sys.argv) == 1:
+    # show message when breaking the program
+    try:
+        programe()
+    except (EOFError, KeyboardInterrupt) as Erorrs:
+        print(Fore.RED+"\n\n<<< Ohh! program was broken.please try again >>>\n",Style.RESET_ALL)
+
+elif len(sys.argv) > 1:
+    ArgumentParser()
+

@@ -32,3 +32,18 @@ This is a simple phone book project with python3 written by Armin Nasirfam
     7) Exit
 
     Please Select An Option: 
+    
+------------------------------------------------------------------------------------
+    
+**command line options**
+
+    positional arguments:
+        name                  Show contact information by name. E.g : myphonbook.py [CONTACT NAME]
+
+    optional arguments:
+    -h, --help            show this help message and exit
+    -v, --verbosity       Show more information from contacts {Can not be used with [-A]}
+    -A                    Show all contact numbers
+    -n NUMBER, --number NUMBER  Show contact information by number
+                        
+
